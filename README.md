@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # TipCalculator
 Beginners ios app calculates tip 
 =======
+=======
+>>>>>>> 22594f1ea3b4f53942fcc7db552e6b5df419d709
 # Project - *Yelp Clone*  
 
 **Yelp Clone** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).  
@@ -21,4 +24,7 @@ The following **optional** features are implemented
 The following **additional** features are implemented:  
   
 - [ ] List anything elese
+<<<<<<< HEAD
+>>>>>>> 22594f1ea3b4f53942fcc7db552e6b5df419d709
+=======
 >>>>>>> 22594f1ea3b4f53942fcc7db552e6b5df419d709
