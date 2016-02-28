@@ -8,11 +8,15 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var businesses: [Business]!
+    
+    var data = [String]()
+    var filteredData: [Business]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +25,22 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
+        searchBar.delegate = self
+        
 
+        
         Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
+            self.filteredData = businesses
             self.tableView.reloadData()
         
             for business in businesses {
                 print(business.name!)
                 print(business.address!)
+                //adds the name of each resturant in string array
+                self.data.append(business.name!)
             }
+        
         })
 
 /* Example of Yelp search with more search options specified
@@ -50,8 +61,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if businesses != nil {
-                return businesses!.count
+            if filteredData != nil {
+                return filteredData!.count
             }
             else {
                 return 0;
@@ -61,8 +72,41 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BuisnessCell", forIndexPath: indexPath) as! BuisnessCell
         
-        cell.business = businesses[indexPath.row]
+        cell.business = filteredData[indexPath.row]
         return cell
+    }
+    
+//    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+//        filteredData = searchText.isEmpty ? data: data.filter({(dataString: String) -> Bool in return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+//        })
+//    }
+//    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchText.isEmpty {
+            filteredData = businesses
+        }
+        else{
+            //temp stores matched titles from data
+            let temp = data.filter({(dataItem: String) -> Bool in
+                if (dataItem.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            })
+            filteredData.removeAll()
+            //checks if title from temp is in one of the list
+            for business in businesses{
+                if temp.contains(business.name!) {
+                    filteredData.append(business)
+                }
+            }
+            
+        }
+        //reloads table once all matches are found
+        tableView.reloadData()
     }
 
     /*
