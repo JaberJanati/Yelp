@@ -3,7 +3,7 @@
 
 **Yelp Clone** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).  
 
-Time spent: **2** hours spent in total  
+Time spent: **6** hours spent in total  
  
 ##User Stories 
 - [x] Table rows for each search results should be dynamic height according to the content height.
