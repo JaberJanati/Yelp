@@ -11,7 +11,7 @@ Time spent: **2** hours spent in total
 - [x] Search bar should be in the navigation bar   
 
 The following **optional** features are implemented  
-- [ ] Search results page  
+- [ ] Infinite Scroll
 - [ ] Implement map view of resturant results  
 - [ ] Implement the resturant detail page.  
 
